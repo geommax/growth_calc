@@ -1,0 +1,30 @@
+[Unit]
+Description=Growth Pattern Calculator Service
+Documentation=file:///path/to/cpp-standalone-app/README.md
+After=network.target
+
+[Service]
+Type=simple
+User=your-username
+Group=your-username
+WorkingDirectory=/path/to/cpp-standalone-app
+ExecStart=/path/to/cpp-standalone-app/build/growth_calc --config /path/to/cpp-standalone-app/config.txt
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=growth_calc
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/path/to/cpp-standalone-app/logs
+
+[Install]
+WantedBy=multi-user.target

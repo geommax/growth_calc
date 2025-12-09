@@ -1,0 +1,39 @@
+# Growth Pattern Calculator Configuration File
+
+# Base value (B) for calculations
+# Can be any decimal number (e.g., 2, 3.14, 10.5)
+base = 2
+
+# Exponent/Multiplier value (E)
+# Must be a positive integer (e.g., 5, 10, 20)
+# Note: Large values will take longer (1 second per step × 2 calculations)
+exponent = 5
+
+# Log file path
+# Logs will be written to this file with timestamps
+# Default: logs/growth_calc.log
+logfile = logs/growth_calc.log
+
+# Enable/disable file logging
+# Set to true or false (console output is always enabled)
+enable_logging = true
+
+# ============================================
+# Example Configurations:
+# ============================================
+
+# Small test:
+# base = 2
+# exponent = 5
+
+# Medium calculation:
+# base = 3
+# exponent = 10
+
+# Large calculation (will take ~40 seconds):
+# base = 2
+# exponent = 20
+
+# Decimal base:
+# base = 1.5
+# exponent = 8
