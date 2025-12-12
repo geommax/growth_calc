@@ -13,6 +13,10 @@ on:
         required: false
         default: 'v0.0.0-dev'
 
+permissions:
+  contents: write #read and write to the repository's source code, commits, tags, and releases.
+  packages: write #Permission to publish and delete packages.
+
 jobs:
   create-release:
     name: Create Release
