@@ -41,12 +41,10 @@ jobs:
 
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ steps.get_version.outputs.version }}
-        release_name: Growth Calculator ${{ steps.get_version.outputs.version }}
+        name: Growth Calculator ${{ steps.get_version.outputs.version }}
         body: |
           ## Growth Pattern Calculator Release
           
@@ -57,7 +55,7 @@ jobs:
           - Comprehensive logging capabilities
           
           ### Supported Platforms
-          - Linux (Ubuntu 20.04+)
+          - Linux (Ubuntu 22.04+)
           
           ### Installation
           Download the appropriate binary for your platform below.
@@ -65,14 +63,15 @@ jobs:
           ### Usage
           ```bash
           # Using config file
-          cd build
-          ./growth_calc --config ../config.txt
+          ./growth_calc --config config.txt
           
           # Using command-line arguments
           ./growth_calc <base> <exponent>
           ```
         draft: false
         prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-release:
     name: Build Release
@@ -119,18 +118,16 @@ jobs:
         mv growth_calc-linux-x86_64.tar.gz ..
 
     - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ needs.create-release.outputs.version }}
+        files: ./growth_calc-linux-x86_64.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ needs.create-release.outputs.upload_url }}
-        asset_path: ./growth_calc-linux-x86_64.tar.gz
-        asset_name: growth_calc-linux-x86_64.tar.gz
-        asset_content_type: application/gzip
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: release-growth_calc-linux-x86_64
         path: release/
-        retention-hours: 3
+        retention-days: 1
