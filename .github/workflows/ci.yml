@@ -44,15 +44,6 @@ jobs:
         file growth_calc
         ls -lh growth_calc
 
-    - name: Test execution with config file
-      run: |
-        cd build
-        ./growth_calc ../config.txt
-        if [ $? -ne 0 ]; then
-          echo "Error: Application failed to run with config file"
-          exit 1
-        fi
-
     - name: Test execution with command-line args
       run: |
         cd build
@@ -62,6 +53,16 @@ jobs:
           exit 1
         fi
 
+    - name: Test execution with config file
+      run: |
+        cd build
+        ./growth_calc --config ../config.txt
+        if [ $? -ne 0 ]; then
+          echo "Error: Application failed to run with config file"
+          exit 1
+        fi
+
+
     - name: Test error handling (invalid args)
       run: |
         cd build
@@ -69,10 +70,10 @@ jobs:
 
     - name: Check log file creation
       run: |
-        cd build
         if [ -d logs ]; then
           echo "Logs directory created successfully"
           ls -la logs/
+          cat logs/growth_calc.log
         fi
 
     - name: Upload build artifacts
