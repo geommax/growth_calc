@@ -80,12 +80,14 @@ jobs:
       run: |
         cd build
         strip growth_calc || echo "Strip not available or failed"
-        
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: growth_calc-ubuntu-22.04
         path: |
+          config.txt
+          growth_calc.service
           build/growth_calc
           logs/growth_calc.log
         retention-days: 1
