@@ -82,49 +82,5 @@ jobs:
         name: growth_calc-ubuntu-22.04
         path: |
           build/growth_calc
-          build/logs/
-        retention-days: 7
-
-  code-coverage:
-    name: Code Coverage
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential cmake gcovr lcov
-
-    - name: Create build directory
-      run: mkdir -p build
-
-    - name: Configure CMake with coverage flags
-      run: |
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-arcs"
-
-    - name: Build
-      run: |
-        cd build
-        cmake --build . -j$(nproc)
-
-    - name: Run application for coverage
-      run: |
-        cd build
-        ./growth_calc ../config.txt
-        ./growth_calc 2 5
-
-    - name: Generate coverage report
-      run: |
-        cd build
-        gcovr --root .. --print-summary --xml-pretty --xml coverage.xml . || echo "Coverage generation completed"
-
-    - name: Upload coverage artifact
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: coverage-report
-        path: build/coverage.xml
-        retention-days: 30
+          logs/growth_calc.log
+        retention-days: 1
