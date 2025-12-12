@@ -12,7 +12,7 @@ exponent = 5
 # Log file path
 # Logs will be written to this file with timestamps
 # Default: logs/growth_calc.log
-logfile = logs/growth_calc.log
+logfile = ../logs/growth_calc.log
 
 # Enable/disable file logging
 # Set to true or false (console output is always enabled)
