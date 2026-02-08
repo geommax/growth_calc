@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build and Test
-    runs-on: [self-hosted, linux, x64, my-runner-label]
+    runs-on: [self-hosted, linux, x64]
 
     steps:
     - name: Checkout code
